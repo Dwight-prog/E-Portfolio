@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adrian Olit | E-Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;600;700;900&family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+/* ========================================
+   ADRIAN OLIT E-PORTFOLIO — COMIC POP EDITORIAL
+   style.css
+   ======================================== */
+
+/* === VARIABLES === */
+:root {
+  --navy: #1F2D3D;
+  --yellow: #FFD400;
+  --blue: #008CFF;
+  --red: #FF3B30;
+  --orange: #D35400;
+  --white: #F7F7F7;
+  --slate: #95A5A6;
+  --dark: #0d1821;
+  --glass-bg: rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.15);
+  --comic-outline: 3px solid #1F2D3D;
+  --shadow-comic: 6px 6px 0px #1F2D3D;
+  --shadow-yellow: 6px 6px 0px var(--yellow);
+  --shadow-blue: 6px 6px 0px var(--blue);
+  --font-display: 'Bangers', cursive;
+  --font-head: 'Montserrat', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+  --font-ui: 'Inter', sans-serif;
+}
+
+/* === RESET === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--navy);
+  overflow-x: hidden;
+  cursor: none;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* === CURSOR GLOW === */
+.cursor-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,212,0,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  mix-blend-mode: screen;
+}
+
+/* Custom cursor */
+body * { cursor: none !important; }
+
+/* === PARTICLES === */
+.particles-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+@keyframes floatUp {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+/* === HALFTONE BG === */
+.halftone-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,212,0,0.25) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  pointer-events: none;
+  z-index: 0;
+}
+.halftone-light {
+  background-image: radial-gradient(circle, rgba(31,45,61,0.06) 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+}
+.halftone-dark {
+  background-image: radial-gradient(circle, rgba(255,212,0,0.15) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* === SECTION DIVIDERS === */
+.section-divider {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+}
+.divider-1::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -5%;
+  width: 110%;
+  height: 100%;
+  background: var(--white);
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+.divider-1 { background: var(--navy); }
+
+.divider-2::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -5%;
+  width: 110%;
+  height: 100%;
+  background: var(--navy);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+.divider-2 { background: var(--white); }
+
+.divider-3::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -5%;
+  width: 110%;
+  height: 100%;
+  background: var(--navy);
+  clip-path: polygon(0 0, 100% 100%, 100% 0);
+}
+.divider-3 { background: var(--dark); }
+
+.divider-4::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -5%;
+  width: 110%;
+  height: 100%;
+  background: var(--dark);
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+.divider-4 { background: var(--white); }
+
+/* === NAVBAR === */
+.navbar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 12px 40px;
+  transition: background 0.3s, backdrop-filter 0.3s;
+}
+.navbar.scrolled {
+  background: rgba(15, 20, 30, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--yellow);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.nav-logos {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.nav-logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(255,212,0,0));
+  transition: filter 0.3s, transform 0.3s;
+}
+.nav-logo:hover {
+  filter: drop-shadow(0 0 10px var(--yellow));
+  transform: scale(1.1);
+}
+.float-logo { animation: floatLogo 3s ease-in-out infinite alternate; }
+.float-logo:nth-child(2) { animation-delay: 0.5s; }
+@keyframes floatLogo {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+}
+.nav-links a {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.2s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 3px;
+  background: var(--yellow);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--yellow); }
+.nav-links a:hover::after { width: 100%; }
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 2px solid var(--yellow);
+  color: var(--yellow);
+  font-size: 1.4rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* === HERO SECTION === */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: var(--navy);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+}
+
+/* Comic panels — angled bg */
+.hero-panel-left {
+  position: absolute;
+  top: 0; left: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--dark) 0%, #243447 100%);
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+  z-index: 1;
+}
+.hero-panel-right {
+  position: absolute;
+  top: 0; right: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--blue) 0%, #0056b3 100%);
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+  z-index: 1;
+}
+
+/* SVG animated lines */
+.comic-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  z-index: 2;
+  opacity: 0.12;
+}
+.anim-line {
+  stroke: var(--yellow);
+  stroke-width: 1.5;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawLine 4s ease forwards;
+}
+.anim-line:nth-child(2) { animation-delay: 0.5s; stroke: var(--white); }
+.anim-line:nth-child(3) { animation-delay: 1s; }
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Starbursts */
+.starburst {
+  position: absolute;
+  z-index: 3;
+  font-size: 2.5rem;
+  color: var(--yellow);
+  animation: spinFloat 6s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(255,212,0,0.6);
+}
+.sb1 { top: 15%; left: 5%; font-size: 3rem; animation-delay: 0s; }
+.sb2 { top: 70%; left: 8%; font-size: 1.5rem; animation-delay: 1s; }
+.sb3 { top: 20%; right: 8%; font-size: 2rem; animation-delay: 2s; color: var(--red); }
+@keyframes spinFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(15deg); }
+}
+
+/* Comic dots */
+.comic-dot {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 3;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+.dot1 { width: 80px; height: 80px; background: var(--yellow); opacity: 0.3; top: 60%; right: 5%; }
+.dot2 { width: 40px; height: 40px; background: var(--red); opacity: 0.5; top: 30%; right: 12%; }
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* Speech Bubble */
+.speech-bubble {
+  position: absolute;
+  top: 18%;
+  right: 5%;
+  background: var(--yellow);
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: 3px solid var(--navy);
+  box-shadow: 4px 4px 0 var(--navy);
+  z-index: 10;
+  transform-origin: bottom right;
+  animation: bubblePop 0.5s cubic-bezier(0.34,1.56,0.64,1) 1.5s both;
+  white-space: nowrap;
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -18px; right: 24px;
+  border: 9px solid transparent;
+  border-top-color: var(--navy);
+}
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -12px; right: 26px;
+  border: 7px solid transparent;
+  border-top-color: var(--yellow);
+  z-index: 1;
+}
+@keyframes bubblePop {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Hero Content */
+.hero-content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 40px 80px;
+  gap: 40px;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 560px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--navy);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border: 2px solid var(--navy);
+  box-shadow: 3px 3px 0 var(--navy);
+  margin-bottom: 20px;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  line-height: 0.9;
+  margin-bottom: 16px;
+}
+.name-first {
+  display: block;
+  font-size: clamp(4rem, 8vw, 7rem);
+  color: var(--white);
+  letter-spacing: 0.04em;
+  text-shadow: 6px 6px 0 var(--navy), -2px -2px 0 rgba(0,140,255,0.4);
+}
+.name-last {
+  display: block;
+  font-size: clamp(4.5rem, 9vw, 8rem);
+  color: var(--yellow);
+  letter-spacing: 0.04em;
+  -webkit-text-stroke: 3px var(--navy);
+  text-shadow: 6px 6px 0 var(--navy);
+}
+
+.hero-subtitle-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.hero-subtitle {
+  font-family: var(--font-head);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--white);
+  background: var(--red);
+  padding: 6px 18px;
+  border: 2px solid var(--navy);
+  box-shadow: 4px 4px 0 var(--navy);
+  display: inline-block;
+}
+
+.hero-intro {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(247,247,247,0.85);
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: 3px solid var(--navy);
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.cta-primary {
+  background: var(--yellow);
+  color: var(--navy);
+  box-shadow: var(--shadow-comic);
+}
+.cta-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--navy);
+}
+.cta-secondary {
+  background: transparent;
+  color: var(--white);
+  box-shadow: 6px 6px 0 var(--yellow);
+  border-color: var(--yellow);
+}
+.cta-secondary:hover {
+  background: var(--yellow);
+  color: var(--navy);
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--navy);
+}
+
+.hero-logos {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.hero-inst-logo {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255,212,0,0.3));
+  transition: filter 0.3s, transform 0.3s;
+}
+.hero-inst-logo:hover {
+  filter: drop-shadow(0 0 12px var(--yellow));
+  transform: scale(1.08);
+}
+
+/* Hero Photo */
+.hero-photo-wrap {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(280px, 35vw, 420px);
+}
+.photo-shadow-layer {
+  position: absolute;
+  bottom: -12px; right: -12px;
+  width: 100%; height: 100%;
+  background: var(--orange);
+  border: 4px solid var(--navy);
+  z-index: 0;
+  border-radius: 8px;
+}
+.photo-frame-accent {
+  position: absolute;
+  top: -12px; left: -12px;
+  width: 80px; height: 80px;
+  border-top: 6px solid var(--yellow);
+  border-left: 6px solid var(--yellow);
+  z-index: 10;
+}
+.photo-comic-border {
+  position: relative;
+  z-index: 2;
+  border: 5px solid var(--navy);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 0 3px var(--yellow), 0 0 0 6px var(--navy);
+  background: var(--slate);
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-photo {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.05) saturate(1.1);
+  transition: transform 0.4s;
+}
+.hero-photo-wrap:hover .hero-photo { transform: scale(1.03); }
+.photo-label {
+  position: absolute;
+  bottom: 20px; right: -16px;
+  background: var(--yellow);
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  padding: 8px 14px;
+  border: 3px solid var(--navy);
+  box-shadow: 3px 3px 0 var(--navy);
+  z-index: 10;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.scroll-indicator span {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(247,247,247,0.6);
+}
+.scroll-arrow {
+  width: 24px; height: 24px;
+  border-right: 3px solid var(--yellow);
+  border-bottom: 3px solid var(--yellow);
+  transform: rotate(45deg);
+  animation: scrollBounce 1.2s ease-in-out infinite;
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(-4px) rotate(45deg); }
+  50% { transform: translateY(4px) rotate(45deg); }
+}
+
+/* === SECTION HEADERS === */
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.section-tag {
+  display: inline-block;
+  background: var(--orange);
+  color: var(--white);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  margin-bottom: 16px;
+  border: 2px solid var(--navy);
+  box-shadow: 3px 3px 0 var(--navy);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.section-sub {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  color: var(--slate);
+  font-weight: 400;
+}
+.highlight-yellow { color: var(--yellow); -webkit-text-stroke: 2px var(--navy); }
+.highlight-blue { color: var(--blue); }
+.highlight-red { color: var(--red); }
+
+/* === EXPERIENCE SECTION === */
+.experience {
+  position: relative;
+  padding: 100px 40px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+/* Timeline */
+.timeline-wrap {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, var(--yellow), var(--blue), var(--red));
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+.timeline-item {
+  position: relative;
+  width: 46%;
+  margin-bottom: 48px;
+}
+.timeline-item.left { margin-right: auto; padding-right: 40px; }
+.timeline-item.right { margin-left: auto; padding-left: 40px; }
+
+.timeline-dot {
+  position: absolute;
+  width: 18px; height: 18px;
+  background: var(--yellow);
+  border: 4px solid var(--navy);
+  border-radius: 50%;
+  top: 24px;
+  box-shadow: 0 0 0 4px rgba(255,212,0,0.2);
+}
+.timeline-item.left .timeline-dot { right: -9px; transform: translateX(50%); }
+.timeline-item.right .timeline-dot { left: -9px; transform: translateX(-50%); }
+
+.exp-card {
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 28px;
+  backdrop-filter: blur(12px);
+  background: #fff;
+  border: 3px solid var(--navy);
+  box-shadow: var(--shadow-comic);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.exp-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 var(--navy);
+}
+.exp-card.accent-card {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--yellow);
+  box-shadow: var(--shadow-yellow);
+}
+.exp-card.accent-card h3 { color: var(--yellow); }
+.exp-card.accent-card p { color: rgba(247,247,247,0.85); }
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  display: block;
+}
+.exp-card h3 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: var(--navy);
+}
+.exp-card p {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #444;
+}
+
+/* Comic Panel Separator */
+.comic-panel-sep {
+  text-align: center;
+  margin-top: 60px;
+  position: relative;
+}
+.panel-text {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  background: var(--yellow);
+  color: var(--navy);
+  padding: 12px 40px;
+  border: 4px solid var(--navy);
+  box-shadow: 6px 6px 0 var(--navy);
+  display: inline-block;
+  position: relative;
+}
+
+/* === ARTIFACTS SECTION === */
+.artifacts {
+  position: relative;
+  padding: 100px 40px;
+  background: var(--navy);
+  overflow: hidden;
+}
+.artifacts .section-title { color: var(--white); }
+.artifacts .section-sub { color: var(--slate); }
+
+.artifacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.artifact-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.05);
+  border: 3px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 32px 28px 24px;
+  transition: transform 0.25s, box-shadow 0.25s;
+  backdrop-filter: blur(8px);
+  box-shadow: 6px 6px 0 rgba(255,212,0,0.3);
+}
+.artifact-card:hover {
+  transform: translate(-4px, -4px) rotate(-1deg);
+  box-shadow: 10px 10px 0 var(--yellow);
+  border-color: var(--yellow);
+}
+.artifact-card--blue:hover { box-shadow: 10px 10px 0 var(--blue); border-color: var(--blue); }
+.artifact-card--gold:hover { box-shadow: 10px 10px 0 var(--yellow); }
+
+.artifact-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255,212,0,0.12), transparent 60%);
+  pointer-events: none;
+}
+.artifact-card--blue .artifact-glow {
+  background: radial-gradient(circle at top left, rgba(0,140,255,0.15), transparent 60%);
+}
+
+.artifact-icon-wrap {
+  margin-bottom: 16px;
+}
+.artifact-icon {
+  font-size: 2.8rem;
+  display: inline-block;
+  animation: iconFloat 3s ease-in-out infinite;
+}
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.artifact-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: var(--red);
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 2px solid var(--navy);
+}
+
+.artifact-body {
+  flex: 1;
+}
+.artifact-body h3 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.artifact-sub {
+  font-size: 0.78rem;
+  color: var(--yellow);
+  font-weight: 600;
+  margin-bottom: 8px !important;
+  font-family: var(--font-head);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.artifact-body p {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(247,247,247,0.7);
+}
+
+.artifact-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.artifact-card--blue .artifact-footer { color: var(--blue); }
+
+/* === DISCUSSION SECTION === */
+.discussion {
+  position: relative;
+  padding: 100px 40px;
+  background: var(--dark);
+  overflow: hidden;
+}
+
+.discussion-feature {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.discussion-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: rgba(255,255,255,0.04);
+  border: 3px solid var(--orange);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 var(--orange);
+  transition: transform 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(8px);
+}
+.discussion-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 var(--yellow);
+  border-color: var(--yellow);
+}
+
+.discussion-preview-wrap {
+  position: relative;
+  min-height: 340px;
+  overflow: hidden;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.discussion-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+.discussion-card:hover .discussion-img { transform: scale(1.06); }
+
+.discussion-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15,20,30,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(4px);
+}
+.discussion-card:hover .discussion-overlay { opacity: 1; }
+.open-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--yellow);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.discussion-info {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.discussion-tag-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.disc-tag {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  background: rgba(211,84,0,0.3);
+  color: var(--orange);
+  border: 1.5px solid var(--orange);
+  border-radius: 4px;
+}
+.disc-tag--open {
+  background: rgba(255,212,0,0.2);
+  color: var(--yellow);
+  border-color: var(--yellow);
+  animation: tagPulse 2s ease-in-out infinite;
+}
+@keyframes tagPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.discussion-info h3 {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 1.3rem;
+  color: var(--white);
+  line-height: 1.3;
+}
+.discussion-info p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(247,247,247,0.7);
+}
+.disc-meta {
+  margin-top: auto;
+  display: flex;
+  gap: 20px;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--slate);
+}
+
+/* Floating comic badges */
+.float-badge {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: 0.05em;
+  border: 4px solid var(--navy);
+  padding: 10px 20px;
+  z-index: 5;
+  animation: badgeSpin 8s ease-in-out infinite;
+}
+.badge-pow {
+  top: 15%; left: 3%;
+  background: var(--red);
+  color: var(--white);
+  box-shadow: 4px 4px 0 var(--navy);
+  transform: rotate(-8deg);
+}
+.badge-wow {
+  bottom: 15%; right: 3%;
+  background: var(--yellow);
+  color: var(--navy);
+  box-shadow: 4px 4px 0 var(--navy);
+  transform: rotate(6deg);
+}
+@keyframes badgeSpin {
+  0%, 100% { transform: rotate(-8deg) scale(1); }
+  50% { transform: rotate(-12deg) scale(1.05); }
+}
+.badge-wow { animation-name: badgeSpinR; }
+@keyframes badgeSpinR {
+  0%, 100% { transform: rotate(6deg) scale(1); }
+  50% { transform: rotate(10deg) scale(1.05); }
+}
+
+/* === FEEDBACK SECTION === */
+.feedback {
+  position: relative;
+  padding: 100px 40px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.feedback-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.instructor-panel {
+  display: flex;
+  justify-content: center;
+}
+
+.instructor-photo-wrap {
+  position: relative;
+  text-align: center;
+}
+.instr-glow-ring {
+  position: absolute;
+  top: -10px; left: -10px;
+  right: -10px; bottom: -10px;
+  border-radius: 20px;
+  border: 3px solid var(--yellow);
+  animation: glowRing 3s ease-in-out infinite;
+  z-index: 0;
+}
+@keyframes glowRing {
+  0%, 100% { box-shadow: 0 0 12px rgba(255,212,0,0.4); }
+  50% { box-shadow: 0 0 28px rgba(255,212,0,0.7); }
+}
+.instructor-photo {
+  width: 280px;
+  height: 340px;
+  object-fit: cover;
+  border: 5px solid var(--navy);
+  border-radius: 16px;
+  box-shadow: var(--shadow-yellow);
+  position: relative;
+  z-index: 1;
+  display: block;
+  background: var(--slate);
+}
+.instr-caption {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-head);
+}
+.instr-caption span:first-child {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--navy);
+}
+.instr-label {
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  color: var(--orange) !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.feedback-content {
+  position: relative;
+}
+.quote-mark {
+  font-family: var(--font-display);
+  font-size: 8rem;
+  line-height: 0.6;
+  color: var(--yellow);
+  opacity: 0.6;
+  margin-bottom: 16px;
+  display: block;
+}
+.feedback-heading {
+  font-family: var(--font-head);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--navy);
+  margin-bottom: 24px;
+  position: relative;
+  padding-bottom: 12px;
+}
+.feedback-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 60px; height: 5px;
+  background: var(--orange);
+  border-radius: 3px;
+}
+
+.feedback-text p {
+  font-family: var(--font-body);
+  font-size: 0.97rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.feedback-sig {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 28px 0;
+}
+.sig-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, var(--navy), transparent);
+}
+.feedback-sig span {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--navy);
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.star-rating span {
+  font-size: 1.6rem;
+  color: var(--yellow);
+  text-shadow: 0 0 8px rgba(255,212,0,0.6);
+  animation: starPop 0.3s ease backwards;
+}
+.star-rating span:nth-child(1) { animation-delay: 0.1s; }
+.star-rating span:nth-child(2) { animation-delay: 0.2s; }
+.star-rating span:nth-child(3) { animation-delay: 0.3s; }
+.star-rating span:nth-child(4) { animation-delay: 0.4s; }
+.star-rating span:nth-child(5) { animation-delay: 0.5s; }
+@keyframes starPop {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.star-rating p {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  color: var(--slate);
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+/* Closing Banner */
+.closing-banner {
+  margin-top: 80px;
+  background: var(--navy);
+  border: 5px solid var(--yellow);
+  box-shadow: 8px 8px 0 var(--yellow);
+  border-radius: 20px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+.closing-inner {
+  padding: 60px 40px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--dark) 0%, var(--navy) 100%);
+  position: relative;
+}
+.closing-starburst {
+  font-size: 3rem;
+  color: var(--yellow);
+  animation: spinFloat 4s linear infinite;
+  display: block;
+  margin-bottom: 16px;
+}
+.closing-inner h2 {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  letter-spacing: 0.08em;
+  color: var(--yellow);
+  -webkit-text-stroke: 2px var(--navy);
+  text-shadow: 4px 4px 0 var(--navy);
+  margin-bottom: 12px;
+}
+.closing-inner p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(247,247,247,0.85);
+  margin-bottom: 6px;
+}
+.closing-sub {
+  font-size: 0.82rem !important;
+  color: var(--slate) !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-head) !important;
+  font-weight: 600 !important;
+}
+.closing-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+.closing-dots span {
+  width: 10px; height: 10px;
+  background: var(--yellow);
+  border-radius: 50%;
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+.closing-dots span:nth-child(2) { animation-delay: 0.2s; background: var(--blue); }
+.closing-dots span:nth-child(3) { animation-delay: 0.4s; background: var(--red); }
+@keyframes dotBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* === FOOTER === */
+.footer {
+  background: var(--dark);
+  border-top: 4px solid var(--yellow);
+  padding: 32px 40px;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logos {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.footer-logo {
+  height: 40px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.footer-logo:hover { opacity: 1; }
+.footer-text {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--slate);
+  line-height: 1.6;
+}
+.footer-text strong { color: var(--white); }
+.footer-badge {
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--yellow);
+  background: rgba(255,212,0,0.1);
+  border: 2px solid var(--yellow);
+  padding: 6px 16px;
+  border-radius: 4px;
+}
+
+/* === AOS ANIMATIONS === */
+[data-aos] {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+[data-aos="fade-up"] { transform: translateY(40px); }
+[data-aos="fade-right"] { transform: translateX(-40px); }
+[data-aos="fade-left"] { transform: translateX(40px); }
+[data-aos="zoom-in"] { transform: scale(0.9); }
+
+[data-aos].aos-animate {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* === GLASS CARDS === */
+.glass-card {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .hero-content { padding: 60px 24px 80px; }
+  .hero-photo-wrap { width: clamp(220px, 30vw, 340px); }
+  .feedback-layout { grid-template-columns: 1fr; }
+  .instructor-panel { margin-bottom: 20px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px; left: 0; right: 0;
+    background: rgba(15,20,30,0.97);
+    padding: 20px;
+    gap: 16px;
+    border-bottom: 2px solid var(--yellow);
+  }
+  .nav-toggle { display: block; }
+
+  .hero-content { flex-direction: column; align-items: center; text-align: center; }
+  .hero-text { max-width: 100%; }
+  .hero-cta-group { justify-content: center; }
+  .hero-logos { justify-content: center; }
+  .hero-photo-wrap { width: 260px; }
+
+  .timeline-line { display: none; }
+  .timeline-item, .timeline-item.left, .timeline-item.right {
+    width: 100%;
+    padding: 0;
+    margin-left: 0;
+  }
+  .timeline-dot { display: none; }
+
+  .discussion-card { grid-template-columns: 1fr; }
+  .discussion-preview-wrap { min-height: 220px; }
+
+  .artifacts { padding: 60px 20px; }
+  .experience { padding: 60px 20px; }
+  .discussion { padding: 60px 20px; }
+  .feedback { padding: 60px 20px; }
+
+  .float-badge { display: none; }
+
+  .footer-inner { flex-direction: column; align-items: center; text-align: center; }
+
+  .speech-bubble { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hero-panel-left, .hero-panel-right { width: 100%; clip-path: none; }
+  .hero-panel-right { display: none; }
+  .hero-content { padding: 60px 16px; }
+  .name-first { font-size: 3.5rem; }
+  .name-last { font-size: 4rem; }
+  .artifacts-grid { grid-template-columns: 1fr; }
+  .closing-inner h2 { font-size: 3rem; }
+}
+
+/* === TILT EFFECT === */
+.tilt-card {
+  transition: transform 0.15s ease;
+  transform-style: preserve-3d;
+}
+
+</style>
+</head>
+<body>
+
+  <!-- CURSOR GLOW -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- FLOATING PARTICLES -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logos">
+        <img src="CNSC LOGO.jpg" alt="CNSC Logo" class="nav-logo float-logo" />
+        <img src="CCMS LOGO.jpg" alt="CCMS Logo" class="nav-logo float-logo" />
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#artifacts">Artifacts</a></li>
+        <li><a href="#discussion">Discussion</a></li>
+        <li><a href="#feedback">Feedback</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+  </nav>
+
+  <!-- ===================== SECTION 1: HERO ===================== -->
+  <section class="hero" id="hero">
+    <!-- Halftone BG -->
+    <div class="halftone-bg"></div>
+
+    <!-- Comic SVG Lines -->
+    <svg class="comic-lines" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+      <line class="anim-line" x1="0" y1="150" x2="1200" y2="300" />
+      <line class="anim-line" x1="0" y1="400" x2="1200" y2="200" />
+      <line class="anim-line" x1="600" y1="0" x2="400" y2="700" />
+    </svg>
+
+    <!-- Panel Diagonal Divider -->
+    <div class="hero-panel-left"></div>
+    <div class="hero-panel-right"></div>
+
+    <!-- Star Burst Decorations -->
+    <div class="starburst sb1">★</div>
+    <div class="starburst sb2">✦</div>
+    <div class="starburst sb3">⚡</div>
+    <div class="comic-dot dot1"></div>
+    <div class="comic-dot dot2"></div>
+
+    <!-- Speech Bubble -->
+    <div class="speech-bubble" id="speechBubble">
+      GEC-ELEC6 E-Portfolio!
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <div class="hero-text" data-aos="fade-right">
+        <div class="hero-badge">
+          <span>2A | BSIT</span>
+        </div>
+        <h1 class="hero-name">
+          <span class="name-first">ADRIAN</span>
+          <span class="name-last">OLIT</span>
+        </h1>
+        <div class="hero-subtitle-wrap">
+          <p class="hero-subtitle">E-Portfolio</p>
+        </div>
+        <p class="hero-intro">
+          Camarines Norte State College — College of Computing and Multimedia Studies.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#experience" class="cta-btn cta-primary">
+            <span>Explore Portfolio</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#artifacts" class="cta-btn cta-secondary">View Work</a>
+        </div>
+        <div class="hero-logos">
+          <img src="CNSC LOGO.jpg" alt="CNSC" class="hero-inst-logo parallax-logo" />
+          <img src="CCMS LOGO.jpg" alt="CCMS" class="hero-inst-logo parallax-logo" />
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap" data-aos="fade-left">
+        <div class="photo-shadow-layer"></div>
+        <div class="photo-frame-accent"></div>
+        <div class="photo-comic-border">
+          <img src="ADRIAN.jpg" alt="Adrian Olit" class="hero-photo" />
+        </div>
+        <div class="photo-label">Adrian<br/>Olit</div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll Down</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- Angled Divider -->
+  <div class="section-divider divider-1"></div>
+
+  <!-- ===================== SECTION 2: COURSE EXPERIENCE ===================== -->
+  <section class="experience" id="experience">
+    <div class="halftone-bg halftone-light"></div>
+
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag">Chapter 02</div>
+      <h2 class="section-title">Course <span class="highlight-yellow">Experience</span></h2>
+      <p class="section-sub">My journey through GEC-ELEC6 — lessons, growth, and discoveries</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-wrap">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item left" data-aos="fade-right">
+        <div class="timeline-dot"></div>
+        <div class="exp-card glass-card">
+          <div class="card-icon">🌱</div>
+          <h3>Personal Growth</h3>
+          <p>Reading in Visual Arts** allowed me to appreciate art beyond its visual appearance and understand the deeper meanings, emotions, and messages behind every artwork. Throughout the course, I learned how visual elements such as color, composition, symbolism, and perspective influence the way people interpret art and media. The subject challenged me to think critically, analyze creatively, and express my own interpretations with confidence. Through discussions, reflections, and various activities, I became more observant and open-minded, realizing that art is not only about aesthetics but also about culture, identity, communication, and human experience. This course helped me develop a deeper appreciation for creativity and strengthened my ability to connect ideas through visual understanding.
+</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right" data-aos="fade-left">
+        <div class="timeline-dot"></div>
+        <div class="exp-card glass-card">
+          <div class="card-icon">💡</div>
+          <h3>Technical Learnings</h3>
+          <p>This course enhanced my understanding of visual analysis, interpretation, and creative communication through art and media. I learned how to examine different visual elements such as color, texture, symbolism, balance, and composition to better understand the message and meaning behind artworks. The discussions, reflections, and activities improved my critical thinking and observation skills, allowing me to interpret visual content more deeply rather than simply viewing it at surface level. Through analyzing various forms of visual art, I also developed a greater appreciation for creativity, cultural expression, and the role of art in communicating ideas and emotions in society.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left" data-aos="fade-right">
+        <div class="timeline-dot"></div>
+        <div class="exp-card glass-card">
+          <div class="card-icon">⚡</div>
+          <h3>Challenges Encountered</h3>
+          <p>One of the biggest challenges I faced in this course was balancing the subject requirements alongside my other academic responsibilities. Managing my time effectively became difficult, especially when working on reflection papers and activities that required deeper analysis and personal interpretation rather than simple summaries. There were moments when understanding the meaning behind certain artworks and visual materials challenged my creativity and critical thinking skills. However, these experiences pushed me to become more patient, observant, and open-minded. I learned how to express my thoughts more clearly, work under pressure, and overcome creative blocks while still producing meaningful and quality outputs.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right" data-aos="fade-left">
+        <div class="timeline-dot"></div>
+        <div class="exp-card glass-card">
+          <div class="card-icon">🤝</div>
+          <h3>Collaboration Experiences</h3>
+          <p>Working with my classmates during discussions, reflections, and collaborative activities allowed me to appreciate the value of teamwork and the importance of understanding different perspectives. Through sharing ideas and interpretations about artworks, films, and visual materials, I realized that collaboration is not simply about completing tasks together, but also about listening, respecting opinions, and learning from one another’s insights. These experiences helped me improve my communication skills, become more open-minded, and develop patience when working with others. By collaborating with my peers, I gained a deeper understanding of the subject and learned how collective ideas can create more meaningful and thoughtful outputs.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left" data-aos="fade-right">
+        <div class="timeline-dot"></div>
+        <div class="exp-card glass-card">
+          <div class="card-icon">🧠</div>
+          <h3>Problem-Solving Skills</h3>
+          <p>This course helped me develop a more thoughtful and analytical approach to problem-solving through the interpretation and analysis of visual artworks and media. Instead of relying on first impressions, I learned to carefully observe details, identify deeper meanings, and consider different perspectives before forming conclusions. The activities and discussions encouraged me to think critically, express my ideas clearly, and appreciate how visual elements can communicate complex messages and emotions. These experiences strengthened my creativity, observation skills, and ability to analyze situations more effectively, which I can also apply to my academic work, programming projects, and everyday decision-making.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right" data-aos="fade-left">
+        <div class="timeline-dot"></div>
+        <div class="exp-card glass-card accent-card">
+          <div class="card-icon">🚀</div>
+          <h3>Future Aspirations</h3>
+          <p>This course inspired me to become someone who not only appreciates art but also understands the value of creativity, culture, and visual expression in everyday life. As I continue my journey in the field of Information Technology, I aspire to combine technical skills with creativity and critical thinking to create meaningful and user-friendly digital experiences. Reading in Visual Arts taught me that visuals have the power to communicate emotions, ideas, and stories that words sometimes cannot express. In the future, I hope to apply this understanding in designing projects and technologies that are not only functional but also engaging, creative, and impactful to people and communities.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comic Panel Separator -->
+    <div class="comic-panel-sep">
+      <span class="panel-text">Level Up! 🎮</span>
+    </div>
+  </section>
+
+  <div class="section-divider divider-2"></div>
+
+  <!-- ===================== SECTION 3: ARTIFACTS ===================== -->
+  <section class="artifacts" id="artifacts">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag" style="background:#FF3B30;">Chapter 03</div>
+      <h2 class="section-title">Academic <span class="highlight-blue">Artifacts</span></h2>
+      <p class="section-sub">Outputs, quizzes, and reflections from the course</p>
+    </div>
+
+    <div class="artifacts-grid">
+
+      <!-- Long Quiz -->
+      <a href="LONG QUIZ.jpg" target="_blank" class="artifact-card artifact-card--blue" data-aos="zoom-in" data-aos-delay="100" data-tilt>
+        <div class="artifact-glow"></div>
+        <div class="artifact-icon-wrap">
+          <div class="artifact-icon">📋</div>
+        </div>
+        <div class="artifact-badge" style="background:#008CFF;">PDF</div>
+        <div class="artifact-body">
+          <h3>Long Quiz</h3>
+          <p>Comprehensive examination covering major topics, requiring in-depth analysis and synthesis of course learnings.</p>
+        </div>
+        <div class="artifact-footer">
+          <span>Open PDF</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="section-divider divider-3"></div>
+
+  <!-- ===================== SECTION 4: DISCUSSION PAPER ===================== -->
+  <section class="discussion" id="discussion">
+    <div class="halftone-bg halftone-dark"></div>
+
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag" style="background:#D35400;">Chapter 04</div>
+      <h2 class="section-title" style="color:#F7F7F7;">Discussion <span class="highlight-yellow">Paper</span></h2>
+      <p class="section-sub" style="color:#95A5A6;">A featured written work from the course</p>
+    </div>
+
+    <div class="discussion-feature" data-aos="zoom-in">
+      <a href="GE_ELEC_6 - Film Discussion Paper (Group 2).pdf" target="_blank" class="discussion-card">
+        <div class="discussion-preview-wrap">
+          <img src="PREVIEW.png" alt="Discussion Paper Preview" class="discussion-img" />
+          <div class="discussion-overlay">
+            <div class="open-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>Open PDF</span>
+            </div>
+          </div>
+        </div>
+        <div class="discussion-info">
+          <div class="discussion-tag-row">
+            <span class="disc-tag">Discussion Paper</span>
+            <span class="disc-tag disc-tag--open">Click to Open</span>
+          </div>
+          <h3>Film: Concepts, Philippine Cinema, Film Analysis, & Approaches to Film Criticism:</h3>
+          <p>In this discussion paper, I explored the different concepts and approaches used in understanding and analyzing films, particularly within the context of Philippine cinema. Through various methods of film analysis, I examined how movies communicate deeper meanings through storytelling, symbols, visuals, and sound. The discussion highlights how films are more than just entertainment — they serve as reflections of culture, society, emotions, and human experiences. By studying approaches such as text-based analysis, semiotic analysis, topic-based analysis, and picture and sound analysis, I gained a deeper appreciation for the artistic and critical elements that shape audience interpretation and cinematic expression.</p>
+          <div class="disc-meta">
+            <span>📄 PDF Document</span>
+            <span>GEC-ELEC6 | 2A</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Floating comic badges -->
+    <div class="float-badge badge-pow">POW!</div>
+    <div class="float-badge badge-wow">WOW!</div>
+  </section>
+
+  <div class="section-divider divider-4"></div>
+
+  <!-- ===================== SECTION 5: INSTRUCTOR FEEDBACK ===================== -->
+  <section class="feedback" id="feedback">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag" style="background:#1F2D3D;">Final Chapter</div>
+      <h2 class="section-title">Instructor <span class="highlight-red">Feedback</span></h2>
+      <p class="section-sub">A heartfelt reflection on the guidance received throughout this course</p>
+    </div>
+
+    <div class="feedback-layout" data-aos="fade-up">
+      <div class="instructor-panel">
+        <div class="instructor-photo-wrap">
+          <div class="instr-glow-ring"></div>
+          <img src="INSTRUCTOR.jpg" alt="Course Instructor" class="instructor-photo" />
+          <div class="instr-caption">
+            <span>Course Instructor</span>
+            <span class="instr-label">GEC-ELEC6</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feedback-content">
+        <div class="quote-mark">"</div>
+        <h3 class="feedback-heading">A Mentor Who Made a Difference</h3>
+
+        <div class="feedback-text">
+          <p>From the very first session of GEC-ELEC6, our instructor set a tone that was refreshingly different from what I expected. Instead of dry lectures and passive note-taking, we were challenged to think, to reflect, to engage — and that made all the difference. There was a genuine warmth in the way our instructor approached teaching: always present, always encouraging, and always pushing us to go deeper than the surface.</p>
+
+          <p>What I appreciated most was how our instructor created space for every voice in the classroom. No question was too small, no perspective too unconventional. The discussions were dynamic and thought-provoking, and I often left class with my mind buzzing with new ideas. That kind of intellectual stimulation is rare, and I'm grateful to have experienced it.</p>
+
+          <p>This course, under this instructor's guidance, has been one of the most meaningful learning experiences of my college journey. Thank you for your patience, your passion, and your unwavering commitment to our growth. The lessons from GEC-ELEC6 — both the technical and the deeply human ones — will stay with me for years to come.</p>
+        </div>
+
+        <div class="feedback-sig">
+          <div class="sig-line"></div>
+          <span>— Adrian Olit, BSIT 2A</span>
+        </div>
+
+        <!-- Star Rating -->
+        <div class="star-rating">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          <p>Outstanding teaching and mentorship</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Closing Banner -->
+    <div class="closing-banner" data-aos="zoom-in">
+      <div class="closing-inner">
+        <div class="closing-starburst">✦</div>
+        <h2>The End.</h2>
+        <p>Thank you for viewing Adrian Olit's E-Portfolio</p>
+        <p class="closing-sub">GEC-ELEC6 | BSIT 2A | Camarines Norte State College</p>
+        <div class="closing-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logos">
+        <img src="asset/cnsc_logo.png" alt="CNSC" class="footer-logo" />
+        <img src="asset/ccms_logo.png" alt="CCMS" class="footer-logo" />
+      </div>
+      <div class="footer-text">
+        <p><strong>Adrian Olit</strong> | BSIT 2A | GEC-ELEC6 E-Portfolio</p>
+        <p>
+          Camarines Norte State College — College of Computing and Multimedia Studies</p>
+      </div>
+      <div class="footer-badge">
+        <span>Made with ❤️ & ⚡</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+/* ========================================
+   ADRIAN OLIT E-PORTFOLIO
+   script.js
+   ======================================== */
+
+'use strict';
+
+/* ─── CURSOR GLOW ─── */
+(function initCursor() {
+  const glow = document.getElementById('cursorGlow');
+  if (!glow) return;
+  document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top  = e.clientY + 'px';
+  });
+  document.addEventListener('mouseenter', () => { glow.style.opacity = '1'; });
+  document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+})();
+
+/* ─── FLOATING PARTICLES ─── */
+(function initParticles() {
+  const container = document.getElementById('particles');
+  if (!container) return;
+
+  const colors = ['#FFD400', '#008CFF', '#FF3B30', '#D35400', '#ffffff'];
+  const shapes = ['circle', 'star', 'triangle'];
+
+  function createParticle() {
+    const p = document.createElement('div');
+    p.className = 'particle';
+
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size  = Math.random() * 8 + 4;
+    const left  = Math.random() * 100;
+    const dur   = Math.random() * 12 + 8;
+    const delay = Math.random() * 10;
+
+    p.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${left}vw;
+      background: ${color};
+      animation-duration: ${dur}s;
+      animation-delay: ${delay}s;
+      border-radius: ${Math.random() > 0.4 ? '50%' : '2px'};
+      opacity: 0;
+    `;
+
+    container.appendChild(p);
+    setTimeout(() => {
+      if (container.contains(p)) container.removeChild(p);
+    }, (dur + delay) * 1000 + 1000);
+  }
+
+  // Initial burst
+  for (let i = 0; i < 30; i++) createParticle();
+  // Continuous spawn
+  setInterval(createParticle, 800);
+})();
+
+/* ─── NAVBAR SCROLL EFFECT ─── */
+(function initNavbar() {
+  const navbar  = document.getElementById('navbar');
+  const toggle  = document.getElementById('navToggle');
+  const links   = document.querySelector('.nav-links');
+
+  if (!navbar) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+    });
+    // Close on link click
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => links.classList.remove('open'));
+    });
+  }
+})();
+
+/* ─── SMOOTH SCROLLING ─── */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+/* ─── SCROLL-TRIGGERED AOS ANIMATIONS ─── */
+(function initAOS() {
+  const elements = document.querySelectorAll('[data-aos]');
+  if (!elements.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.getAttribute('data-aos-delay') || 0;
+        setTimeout(() => {
+          entry.target.classList.add('aos-animate');
+        }, parseInt(delay));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  elements.forEach(el => observer.observe(el));
+})();
+
+/* ─── TILT CARDS ─── */
+(function initTilt() {
+  const cards = document.querySelectorAll('[data-tilt]');
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width  - 0.5;
+      const y = (e.clientY - rect.top)  / rect.height - 0.5;
+      card.style.transform = `
+        translate(-4px, -4px)
+        rotateX(${-y * 10}deg)
+        rotateY(${x * 10}deg)
+        scale(1.02)
+      `;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.4s ease';
+      setTimeout(() => { card.style.transition = ''; }, 400);
+    });
+  });
+})();
+
+/* ─── PARALLAX HERO LOGOS ─── */
+(function initParallax() {
+  const logos = document.querySelectorAll('.parallax-logo');
+  if (!logos.length) return;
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    logos.forEach((logo, i) => {
+      const speed = 0.15 + (i * 0.08);
+      logo.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+  });
+})();
+
+/* ─── SPEECH BUBBLE DYNAMIC TEXT ─── */
+(function initSpeechBubble() {
+  const bubble = document.getElementById('speechBubble');
+  if (!bubble) return;
+
+  const messages = [
+    'GEC-ELEC6 E-Portfolio!',
+    'Welcome! 🎉',
+    'Adrian Olit — BSIT 2A',
+    'Click. Explore. Discover!',
+    'Ka-POW! 💥',
+  ];
+  let idx = 0;
+
+  setInterval(() => {
+    idx = (idx + 1) % messages.length;
+    bubble.style.opacity = '0';
+    bubble.style.transform = 'scale(0.8)';
+    setTimeout(() => {
+      bubble.textContent = messages[idx];
+      bubble.style.opacity = '1';
+      bubble.style.transform = 'scale(1)';
+    }, 300);
+  }, 3500);
+
+  bubble.style.transition = 'opacity 0.3s, transform 0.3s';
+})();
+
+/* ─── STAR RATING OBSERVER (Feedback) ─── */
+(function initStarRating() {
+  const stars = document.querySelectorAll('.star-rating span');
+  if (!stars.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        stars.forEach((star, i) => {
+          setTimeout(() => {
+            star.style.animationPlayState = 'running';
+          }, i * 120);
+        });
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const section = document.getElementById('feedback');
+  if (section) observer.observe(section);
+})();
+
+/* ─── ANIMATED TIMELINE LINE ─── */
+(function initTimelineLine() {
+  const line = document.querySelector('.timeline-line');
+  if (!line) return;
+
+  line.style.transformOrigin = 'top center';
+  line.style.transform = 'scaleY(0)';
+  line.style.transition = 'transform 1.5s ease';
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      line.style.transform = 'scaleY(1)';
+      observer.disconnect();
+    }
+  }, { threshold: 0.1 });
+
+  const section = document.getElementById('experience');
+  if (section) observer.observe(section);
+})();
+
+/* ─── GLOWING CTA PULSE ─── */
+(function initCTAPulse() {
+  const primaryBtn = document.querySelector('.cta-primary');
+  if (!primaryBtn) return;
+
+  let growing = true;
+  setInterval(() => {
+    if (growing) {
+      primaryBtn.style.boxShadow = '8px 8px 0 var(--navy), 0 0 20px rgba(255,212,0,0.4)';
+    } else {
+      primaryBtn.style.boxShadow = '6px 6px 0 var(--navy)';
+    }
+    growing = !growing;
+  }, 1200);
+})();
+
+/* ─── HERO PHOTO COMIC OUTLINE ON SCROLL ─── */
+(function initPhotoEffect() {
+  const photoWrap = document.querySelector('.hero-photo-wrap');
+  if (!photoWrap) return;
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    if (scrolled < 200) {
+      const factor = scrolled / 200;
+      photoWrap.style.transform = `translateY(${factor * -8}px) rotate(${factor * -1}deg)`;
+    }
+  });
+})();
+
+/* ─── ARTIFACT CARDS GLOW ON HOVER ─── */
+(function initArtifactGlow() {
+  const cards = document.querySelectorAll('.artifact-card');
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      const glow = card.querySelector('.artifact-glow');
+      if (glow) {
+        glow.style.opacity = '1';
+        glow.style.transition = 'opacity 0.3s';
+      }
+    });
+    card.addEventListener('mouseleave', () => {
+      const glow = card.querySelector('.artifact-glow');
+      if (glow) glow.style.opacity = '0';
+    });
+  });
+})();
+
+/* ─── SECTION ACTIVE HIGHLIGHT ─── */
+(function initActiveSection() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 120;
+      if (window.pageYOffset >= top) current = section.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.style.color = '';
+      if (link.getAttribute('href') === `#${current}`) {
+        link.style.color = 'var(--yellow)';
+      }
+    });
+  });
+})();
+
+/* ─── COUNTER ANIMATION (Optional cosmetic) ─── */
+function animateCount(el, target, dur) {
+  let start = 0;
+  const step = target / (dur / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) { el.textContent = target; clearInterval(timer); return; }
+    el.textContent = Math.floor(start);
+  }, 16);
+}
+
+/* ─── SCROLL PROGRESS BAR ─── */
+(function initScrollProgress() {
+  const bar = document.createElement('div');
+  bar.style.cssText = `
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--yellow), var(--blue), var(--red));
+    z-index: 99999;
+    width: 0%;
+    transition: width 0.1s;
+  `;
+  document.body.appendChild(bar);
+
+  window.addEventListener('scroll', () => {
+    const scrollTop  = window.pageYOffset;
+    const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+    const progress   = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width  = progress + '%';
+  });
+})();
+
+/* ─── BLUEPRINT CONNECTING LINES (SVG decorations) ─── */
+(function initBlueprintLines() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+
+  // Animate starburst rotation
+  const starbursts = document.querySelectorAll('.starburst');
+  starbursts.forEach((sb, i) => {
+    let angle = 0;
+    setInterval(() => {
+      angle += 0.5;
+      sb.style.textShadow = `0 0 ${10 + Math.sin(angle * 0.05) * 10}px rgba(255,212,0,${0.4 + Math.sin(angle * 0.03) * 0.2})`;
+    }, 50);
+  });
+})();
+
+/* ─── INSTRUCTOR PHOTO WARM LIGHTING ─── */
+(function initInstructorEffect() {
+  const photo = document.querySelector('.instructor-photo');
+  if (!photo) return;
+
+  photo.addEventListener('mouseenter', () => {
+    photo.style.filter = 'brightness(1.1) saturate(1.2) drop-shadow(0 8px 24px rgba(211,84,0,0.4))';
+    photo.style.transform = 'scale(1.03) rotate(-1deg)';
+  });
+  photo.addEventListener('mouseleave', () => {
+    photo.style.filter = '';
+    photo.style.transform = '';
+  });
+  photo.style.transition = 'filter 0.4s, transform 0.4s';
+})();
+
+/* ─── ONLOAD ENTRANCE ─── */
+window.addEventListener('load', () => {
+  document.body.style.opacity = '0';
+  document.body.style.transition = 'opacity 0.6s ease';
+  setTimeout(() => {
+    document.body.style.opacity = '1';
+  }, 100);
+});
+
+console.log('%c⚡ Adrian Olit E-Portfolio Loaded! GEC-ELEC6 | BSIT 2A ⚡', 
+  'background:#1F2D3D;color:#FFD400;font-size:14px;font-weight:bold;padding:8px 16px;border-radius:4px;');
+
+</script>
+</body>
+</html>
